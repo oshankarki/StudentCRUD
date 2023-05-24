@@ -1,25 +1,31 @@
 @extends('layouts.app')
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        text-align: center;
+        font-family: arial;
+    }
+    p{
+        color:#04AA6D;
+        font-size:30px;
+    }
 
+
+
+</style>
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-
-                    {{ __('You are logged in!') }}
-                </div>
+                <h1>Total Number of Students</h1>
+                <a href="{{route('student.index')}}" style="text-decoration: none"> <p>{{$data['count']}}</p></a>
 
             </div>
-            <a href="{{route("student.create")}}" class="btn btn-info">Create Student</a>
+
+
+
 
         </div>
     </div>

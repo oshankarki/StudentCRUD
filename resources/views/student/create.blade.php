@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@extends('layouts.app')
+@section('title','Create')
+
 <style>
     * {
         box-sizing: border-box;
@@ -17,10 +12,10 @@
 
     #regForm {
         background-color: #ffffff;
-        margin: 100px auto;
+        margin-left: 5px;
         font-family: Raleway;
         padding: 40px;
-        width: 70%;
+        width: 95%;
         min-width: 300px;
     }
 
@@ -63,6 +58,9 @@
     #prevBtn {
         background-color: #bbbbbb;
     }
+    .error{
+        color:red;
+    }
     /* Make circles that indicate the steps of the form: */
 
     .step {
@@ -84,9 +82,16 @@
     .step.finish {
         background-color: #04AA6D;
     }
-</style>
 
-<body>
+
+    .table{
+        width:100%;
+    }
+    th,td{
+        width:100px;
+    }
+</style>
+@section('content')
 <form action="{{route('student.store')}}" id="regForm" method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="_method" value="POST">
@@ -94,16 +99,21 @@
     <!-- One "tab" for each step in the form: -->
     <div class="tab">Basic Information:
         <p><input placeholder="Fullname" oninput="this.className = ''" name="name" type="text"></p>
+        <span id="name" class="error"></span>
         <p><input placeholder="Email" oninput="this.className = ''" name="email" type="email"></p>
+        <span id="email" class="error"></span>
         <p><input placeholder="Phone Number" oninput="this.className = ''" name="phone" type="text"></p>
+        <span id="phone" class="error"></span>
         <p><input placeholder="Address" oninput="this.className = ''" name="address"></p>
+        <span id="address" class="error"></span>
         <p><input oninput="this.className = ''" name="image" type="file"></p>
+
         <p><input placeholder="Date of Birth" oninput="this.className = ''" name="dob" type="date"></p>
         <p>
             <label>Gender:</label>
             <br>
             <label for="male">
-                <input type="radio" id="male" name="gender" value="male"> Male
+                <input type="radio" id="male" name="gender" value="male" checked> Male
             </label>
             <label for="female">
                 <input type="radio" id="female" name="gender" value="female"> Female
@@ -119,6 +129,7 @@
 
     </div>
     <div class="tab">Education
+
         <table class="table table-striped table-bordered" id="attribute_wrapper">
             <tr>
                 <th>Level</th>
@@ -144,7 +155,34 @@
                 </td>
             </tr>
 
+            <tr>
+
+                <td>
+                    <span id="level[]" class="error"></span>
+                </td>
+                <td>
+                    <span id="college[]" class="error"></span>
+                </td>
+                <td>
+                    <span id="university[]" class="error"></span>
+
+                </td>
+                <td>
+                    <span id="start_date[]" class="error"></span>
+
+                </td>
+                <td>
+                    <span id="end_date[]" class="error"></span>
+
+                </td>
+
+
+
+            </tr>
+
         </table>
+
+
         <button class="btn btn-info" type="button" id="addMoreAttribute" style="margin-bottom: 20px">
             <i class="fa fa-plus"></i>
             Add
@@ -161,114 +199,141 @@
     <div style="text-align:center;margin-top:40px;">
         <span class="step"></span>
         <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
     </div>
 </form>
 
-<script>
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
 
-    function showTab(n) {
-        // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
-        if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
-        } else {
-            document.getElementById("prevBtn").style.display = "inline";
-        }
-        if (n == (x.length - 1)) {
-            document.getElementById("nextBtn").innerHTML = "Submit";
-        } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
-        }
-        //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
-    }
+@endsection
+@section('scripts')
 
-    function nextPrev(n) {
-        // This function will figure out which tab to display
-        var x = document.getElementsByClassName("tab");
-        // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
-        // Hide the current tab:
-        x[currentTab].style.display = "none";
-        // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-            // ... the form gets submitted:
-            document.getElementById("regForm").submit();
-            return false;
-        }
-        // Otherwise, display the correct tab:
-        showTab(currentTab);
-    }
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
 
-    function validateForm() {
-        // This function deals with validation of the form fields
-        var x, y, i, valid = true;
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-        // A loop that checks every input field in the current tab:
-        for (i = 0; i < y.length; i++) {
-            // If a field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " invalid";
-                // and set the current valid status to false
-                valid = false;
+        function showTab(n) {
+            // This function will display the specified tab of the form...
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            //... and fix the Previous/Next buttons:
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
             }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").innerHTML = "Submit";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            //... and run a function that will display the correct step indicator:
+            fixStepIndicator(n)
         }
-        // If the valid status is true, mark the step as finished and valid:
-        if (valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-        }
-        return valid; // return the valid status
-    }
 
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
+        function nextPrev(n) {
+            // This function will figure out which tab to display
+            var x = document.getElementsByClassName("tab");
+            // Exit the function if any field in the current tab is invalid:
+            if (n == 1 && !validateForm()) return false;
+            // Hide the current tab:
+            x[currentTab].style.display = "none";
+            // Increase or decrease the current tab by 1:
+            currentTab = currentTab + n;
+            // if you have reached the end of the form...
+            if (currentTab >= x.length) {
+                // ... the form gets submitted:
+                document.getElementById("regForm").submit();
+                return false;
+            }
+            // Otherwise, display the correct tab:
+            showTab(currentTab);
         }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
-    }
+
+        function validateForm() {
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].getElementsByTagName("input");
+
+            // Clear all error messages
+            var errorElements = document.getElementsByClassName("error");
+            for (i = 0; i < errorElements.length; i++) {
+                errorElements[i].innerHTML = "";
+            }
+
+            // Validate each field
+            for (i = 0; i < y.length; i++) {
+                var value = y[i].value.trim();
+                var fieldName = y[i].name;
+
+                if (value === "") {
+                    y[i].className += " invalid";
+                    valid = false;
+                    document.getElementById(fieldName).innerHTML = "This field is required.";
+                } else {
+                    // Additional checks for specific fields
+                    if (fieldName === "name" && !/^[a-zA-Z\s]+$/.test(value)) {
+                        y[i].className += " invalid";
+                        valid = false;
+                        document.getElementById("nameError").innerHTML = "Please enter a valid name (only text characters are allowed).";
+                    } else if (fieldName === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        y[i].className += " invalid";
+                        valid = false;
+                        document.getElementById("emailError").innerHTML = "Please enter a valid email address.";
+                    } else if (fieldName === "phone" && !/^[0-9]{10}$/.test(value)) {
+                        y[i].className += " invalid";
+                        valid = false;
+                        document.getElementById("phoneError").innerHTML = "Please enter a valid phone number.";
+                    }
+
+
+                }
+            }
+
+            // If the valid status is true, mark the step as finished and valid
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+
+            return valid;
+        }
+
+
+
+        function fixStepIndicator(n) {
+            // This function removes the "active" class of all steps...
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            //... and adds the "active" class on the current step:
+            x[n].className += " active";
+        }
         var attribute_wrapper = $("#attribute_wrapper"); //Fields wrapper
         var add_button_attribute = $("#addMoreAttribute"); //Add button ID
         var y = 1;
         $(add_button_attribute).click(function (e) { //on add input button click
-        e.preventDefault();
-        var max_fields = 5; //maximum input boxes allowed
-        if (y < max_fields) { //max input box allowed
-        y++; //text box increment
-        //add new row
-        $("#attribute_wrapper tr:last").after(
-        '<tr>'+
-        '<td><input type="text" name="level[]" class="form-control" placeholder="Enter Level"/></td>'+
-        '<td><input type="text" name="college[]" class="form-control" placeholder="Enter College"/></td>'+
-        '<td><input type="text" name="university[]" class="form-control" placeholder="Enter University"/></td>'+
-        '<td><input type="date" name="start_date[]" class="form-control" /></td>'+
-        '<td><input type="date" name="end_date[]" class="form-control" /></td>'+ '<td><a class="btn btn-block btn-warning sa-warning remove_row "><i class="fa fa-trash"></i></a></td>'+
-        '</tr>'
-        );
-    }else{
-        alert('Maximum Attribute Limit is 5');
-    }
-    });
+            e.preventDefault();
+            var max_fields = 5; //maximum input boxes allowed
+            if (y < max_fields) { //max input box allowed
+                y++; //text box increment
+                //add new row
+                $("#attribute_wrapper tr:last").after(
+                    '<tr>'+
+                    '<td><input type="text" name="level[]" class="form-control" placeholder="Enter Level"/></td>'+
+                    '<td><input type="text" name="college[]" class="form-control" placeholder="Enter College"/></td>'+
+                    '<td><input type="text" name="university[]" class="form-control" placeholder="Enter University"/></td>'+
+                    '<td><input type="date" name="start_date[]" class="form-control" /></td>'+
+                    '<td><input type="date" name="end_date[]" class="form-control" /></td>'+ '<td><a class="btn btn-block btn-warning sa-warning remove_row "><i class="fa fa-trash"></i></a></td>'+
+                    '</tr>'
+                );
+            }else{
+                alert('Maximum Attribute Limit is 5');
+            }
+        });
         //remove row
         $(attribute_wrapper).on("click", ".remove_row", function (e) {
-        e.preventDefault();
-        $(this).parents("tr").remove();
-        y--;
-    });
-</script>
+            e.preventDefault();
+            $(this).parents("tr").remove();
+            y--;
+        });
+@endsection
 
-</body>
 
-</html>

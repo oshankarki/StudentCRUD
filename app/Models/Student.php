@@ -15,6 +15,6 @@ class Student extends Model
 
     public function educations()
     {
-        return $this->hasMany(Education::class, 'student_id', 'id');
+        return $this->hasMany(Education::class);
     }
 }
