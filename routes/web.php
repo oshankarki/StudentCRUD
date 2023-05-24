@@ -25,7 +25,6 @@ Route:: post('',[\App\Http\Controllers\StudentController::class,'store'])->name(
 Route::get('',[\App\Http\Controllers\StudentController::class,'index'])->name('student.index');
 Route::delete('/student/{id}', [\App\Http\Controllers\StudentController::class,'destroy'])->name('student.destroy')->middleware('auth');
 Route:: get('/{id}/edit',[\App\Http\Controllers\StudentController::class,'edit'])->name('student.edit')->middleware('auth');
-//route to update data
 Route:: put('/{id}',[\App\Http\Controllers\StudentController::class,'update'])->name('student.update');
 Route:: get('/{id}',[\App\Http\Controllers\StudentController::class,'show'])->name('student.show');
 

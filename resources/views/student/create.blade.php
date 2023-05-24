@@ -272,15 +272,15 @@
                     if (fieldName === "name" && !/^[a-zA-Z\s]+$/.test(value)) {
                         y[i].className += " invalid";
                         valid = false;
-                        document.getElementById("nameError").innerHTML = "Please enter a valid name (only text characters are allowed).";
+                        document.getElementById("name").innerHTML = "Please enter a valid name (only text characters are allowed).";
                     } else if (fieldName === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
                         y[i].className += " invalid";
                         valid = false;
-                        document.getElementById("emailError").innerHTML = "Please enter a valid email address.";
+                        document.getElementById("email").innerHTML = "Please enter a valid email address.";
                     } else if (fieldName === "phone" && !/^[0-9]{10}$/.test(value)) {
                         y[i].className += " invalid";
                         valid = false;
-                        document.getElementById("phoneError").innerHTML = "Please enter a valid phone number.";
+                        document.getElementById("phone").innerHTML = "Please enter a valid phone number.";
                     }
 
 

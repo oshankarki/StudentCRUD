@@ -10,7 +10,7 @@ class Education extends Model
     use HasFactory;
     protected $table='educations';
     protected $fillable=['student_id','level','college','university','start_date','end_date'];
-    protected $filltable=['student_id','level','college','university','start_date','end_date'];
+
     public function student()
     {
         return $this->belongsTo(Student::class);
