@@ -76,48 +76,20 @@
                                     @csrf
                                 </form>
                             </div>
+
                         </li>
                     @endguest
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-black min-vh-100">
-                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-black text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline">Menu</span>
-                    </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                        <li class="nav-item">
-                            <a href="{{route("home")}}" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fa fa-user"></i> <span class="ms-1 d-none d-sm-inline">Student</span> <span class="arrow"><i class="fa fa-caret-down"></i></span> </a>
-                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                                <li class="w-100">
-                                    <a href="{{route("student.create")}}" class="nav-link px-0"> <i class="fa fa-edit"></i> <span class="d-none d-sm-inline">Create</span></a>
-                                </li>
-                                <li>
-                                    <a href="{{route("student.index")}}" class="nav-link px-0"> <i class="fa fa-list"></i> <span class="d-none d-sm-inline">List</span></a>
-                                </li>
-                            </ul>
-                    </ul>
-                    <hr>
 
-                </div>
-            </div>
             <main class="col py-3 main_section">
                 @yield('content')
 
             </main>
         </div>
     </div>
-
 
 
 </div>

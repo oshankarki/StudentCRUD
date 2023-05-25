@@ -46,10 +46,11 @@ class StudentController extends Controller
                     $education->start_date = $request->start_date[$key];
                     $education->end_date = $request->end_date[$key];
                     $education->save();
-                    $request->session()->flash('success', 'Student created successfully');
+                    return redirect()->route('student.index')->with('success', 'Student created successfully');
+
                 }
             } else {
-                $request->session()->flash('error', 'Student creation failed');
+                return redirect()->route('student.index')->withErrors( 'Student Creation Failed');
             }
         } catch (\Exception $exception) {
             request()->session()->flash('error', "Error: " . $exception->getMessage());
@@ -102,12 +103,6 @@ class StudentController extends Controller
     function update(Request $request, $id)
     {
         try {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'image' => 'image|max:2048', // Updated validation rule for the image (optional)
-            ]);
 
             $student = Student::findOrFail($id);
 
@@ -134,7 +129,6 @@ class StudentController extends Controller
             }
 
             $student->save();
-
             $student->educations()->delete();
 
             if ($student) {
@@ -147,13 +141,13 @@ class StudentController extends Controller
                     $education->start_date = $request->start_date[$key];
                     $education->end_date = $request->end_date[$key];
                     $education->save();
-                    $request->session()->flash('success', 'Student Updated successfully');
+                    return redirect()->route('student.index')->with('success', 'Student Updated successfully');
+
                 }
             } else {
-                $request->session()->flash('error', 'Student Updation failed');
-            }
+                return redirect()->route('student.index')->withErrors('Student Updation Failed');
 
-            $request->session()->flash('success', 'Student updated successfully');
+            }
         } catch (\Exception $exception) {
             $request->session()->flash('error', 'Error: ' . $exception->getMessage());
         }

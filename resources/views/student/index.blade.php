@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app1')
 @section('title','List')
 
     <style>
@@ -26,6 +26,11 @@
         }
     </style>
 @section('content')
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
 <h1>Student List</h1>
 
