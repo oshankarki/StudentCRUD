@@ -1,13 +1,15 @@
 @extends('layouts.app1')
 <style>
     .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         text-align: center;
         font-family: arial;
     }
     p{
         color:#04AA6D;
         font-size:30px;
+    }
+    .card h1{
+       margin-top: 40px;
     }
 
 

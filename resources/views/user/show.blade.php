@@ -54,7 +54,7 @@
         <p>{{auth::user()->email}}</p>
 
         <div style="margin: 24px 0;">
-            <a href="{{route('profile.edit')}}"class="btn btn-primary"><i class="fa fa-edit"></i></a>
+            <a href="{{route('profile.edit')}}"class="btn btn-primary">Edit Profile<i class="fa fa-edit"></i></a>
             <a href="{{route('password.change')}}"class="btn btn-primary">Change Password</a>
 
 

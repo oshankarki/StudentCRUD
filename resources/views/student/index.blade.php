@@ -59,7 +59,7 @@
 
         <td><img src="{{ asset('storage/images/'.$record->image) }}" alt="Student Image" height="50px" width="50"></td>
         <td>
-            <a href="{{route('student.show',$record->id)}}"class="btn btn-primary"><i class="fa fa-user"></i></a>
+            <a href="{{route('student.show',$record->id)}}"class="btn btn-info"><i class="fa fa-user"></i></a>
 
             <a href="{{route('student.edit',$record->id)}}"class="btn btn-primary"><i class="fa fa-edit"></i></a>
 

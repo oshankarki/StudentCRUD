@@ -80,11 +80,12 @@
 
     <img src="{{ asset('storage/images/'.$data['record']->image) }}" alt="Image" height="200" width="200">
     <h1>{{$data['record']->name}}</h1>
-    <h5>{{$data['record']->email}}</h5>
+    <h5>Student</h5>
     <h2 style="text-align:center">Basic Information</h2>
 
     <div class="profile_container">
-        <p class="title"><strong>Phone:</strong>{{$data['record']->phone}}</p>
+        <p class="title"><strong>Phone:</strong>{{$data['record']->email}}</p>
+        <p class="title"><strong>Email:</strong>{{$data['record']->phone}}</p>
     <p class="title"><strong>Address:</strong>{{$data['record']->address}}</p>
     <p class="title"><strong>Date of Birth:</strong>{{$data['record']->dob}}</p>
     <p class="title" style="text-transform: capitalize"><strong>Gender:</strong>{{$data['record']->gender}}</p>

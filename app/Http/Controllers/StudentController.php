@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use App\Models\Education;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -15,17 +16,11 @@ class StudentController extends Controller
         return view('student.create');
     }
 
-    function store(Request $request)
+    function store(StudentRequest $request)
     {
         try {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'image' => 'required|image|max:2048', // Validation rule for the image
-            ]);
 
-            $studentData = $request->only(['name', 'email', 'phone', 'address', 'gender', 'dob']);
+        $studentData = $request->only(['name', 'email', 'phone', 'address', 'gender', 'dob']);
 
             // Store the image
             if ($request->hasFile('image')) {
@@ -50,7 +45,7 @@ class StudentController extends Controller
 
                 }
             } else {
-                return redirect()->route('student.index')->withErrors( 'Student Creation Failed');
+                return redirect()->route('student.create')->withErrors( 'Student Creation Failed');
             }
         } catch (\Exception $exception) {
             request()->session()->flash('error', "Error: " . $exception->getMessage());
@@ -72,8 +67,8 @@ class StudentController extends Controller
         try {
             $student = Student::findOrFail($id);
             $student->delete();
+            return redirect()->back()->with('success', 'Student Deleted successfully');
 
-            session()->flash('success', 'Student deleted successfully');
         } catch (\Exception $exception) {
             session()->flash('error', 'Error: ' . $exception->getMessage());
         }

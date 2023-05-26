@@ -92,6 +92,11 @@
     }
 </style>
 @section('content')
+    @if($errors->any())
+        @foreach($errors->all() as $errors)
+            <h1 class="text-danger">{{$errors}}</h1>
+        @endforeach
+        @endif
 <form action="{{route('student.store')}}" id="regForm" method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="_method" value="POST">
@@ -122,14 +127,8 @@
                 <input type="radio" id="other" name="gender" value="other"> Other
             </label>
         </p>
-
-
-
-
-
     </div>
     <div class="tab">Education
-
         <table class="table table-striped table-bordered" id="attribute_wrapper">
             <tr>
                 <th>Level</th>
@@ -138,25 +137,18 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Action</th>
-
-
             </tr>
             <tr>
-
                 <td><input type="text" name="level[]" class="form-control" placeholder="Enter Level"/></td>
                 <td><input type="text" name="college[]" class="form-control" placeholder="Enter College"/></td>
                 <td><input type="text" name="university[]" class="form-control" placeholder="Enter University"/></td>
                 <td><input type="date" name="start_date[]" class="form-control" /></td>
                 <td><input type="date" name="end_date[]" class="form-control" /></td>
-
-
                 <td>
                     <a class="btn btn-block btn-warning sa-warning remove_row "><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
-
             <tr>
-
                 <td>
                     <span id="level[]" class="error"></span>
                 </td>
@@ -175,14 +167,8 @@
                     <span id="end_date[]" class="error"></span>
 
                 </td>
-
-
-
             </tr>
-
         </table>
-
-
         <button class="btn btn-info" type="button" id="addMoreAttribute" style="margin-bottom: 20px">
             <i class="fa fa-plus"></i>
             Add
@@ -201,8 +187,6 @@
         <span class="step"></span>
     </div>
 </form>
-
-
 @endsection
 @section('scripts')
 
