@@ -88,7 +88,14 @@
         <p class="title"><strong>Email:</strong>{{$data['record']->phone}}</p>
     <p class="title"><strong>Address:</strong>{{$data['record']->address}}</p>
     <p class="title"><strong>Date of Birth:</strong>{{$data['record']->dob}}</p>
-    <p class="title" style="text-transform: capitalize"><strong>Gender:</strong>{{$data['record']->gender}}</p>
+        <p class="title" style="text-transform: capitalize">
+            <strong>Gender:</strong>
+            @if($data['record']->gender == "1")
+                Male
+            @elseif($data['record']->gender == "2")
+                Female
+            @endif
+        </p>
     </div>
     <h2 style="text-align:center">Academics</h2>
 
